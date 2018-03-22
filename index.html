@@ -1,0 +1,111 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Бегущая строка</title>
+        <meta name="description" content="Бегущая строка">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+      <script>
+      $( document ).ready(function() {
+        $("#marqueeButton").click(function() {
+          let newText = $("#marqueeInput").val();
+          if(!newText){
+            $("#marqueeText").text("Добавьте текст для бегущей строки");
+          }else{
+            $("#marqueeText").text(newText);
+            $("#marqueeInput").val("");
+          }
+        });
+        $("#marqueeSpeedInput").change(function() {
+          let speedInput = $("#marqueeSpeedInput").val();
+          if(speedInput>0){
+            let newSpeed = 10/speedInput;
+            $(".marquee__text").css("animation-duration", newSpeed + "s");
+            $(".marquee__text").css("animation-direction", "normal");
+          }else if(speedInput<0){
+            let newSpeed = -10/speedInput;
+            $(".marquee__text").css("animation-duration", newSpeed + "s");
+            $(".marquee__text").css("animation-direction", "reverse");
+          }else{
+            $(".marquee__text").css("animation-duration", "0");
+            $(".marquee__text").css("animation-direction", "normal");
+          }
+        });
+        $("#marqueeSpeedUp").click(function() {
+          let currentSpeed = $("#marqueeSpeedInput").val();
+          let updatedSpeed = +currentSpeed + 1;
+          $("#marqueeSpeedInput").val(updatedSpeed);
+          if(updatedSpeed>0){
+            let newSpeed = 10/updatedSpeed;
+            $(".marquee__text").css("animation-duration", newSpeed + "s");
+            $(".marquee__text").css("animation-direction", "normal");
+          }else if(updatedSpeed<0){
+            let newSpeed = -10/updatedSpeed;
+            $(".marquee__text").css("animation-duration", newSpeed + "s");
+            $(".marquee__text").css("animation-direction", "reverse");
+          }else{
+            $(".marquee__text").css("animation-duration", "0");
+            $(".marquee__text").css("animation-direction", "normal");
+          }
+        });
+        $("#marqueeSpeedDown").click(function() {
+          let currentSpeed = $("#marqueeSpeedInput").val();
+          let updatedSpeed = +currentSpeed - 1;
+          $("#marqueeSpeedInput").val(updatedSpeed);
+          if(updatedSpeed>0){
+            let newSpeed = 10/updatedSpeed;
+            $(".marquee__text").css("animation-duration", newSpeed + "s");
+            $(".marquee__text").css("animation-direction", "normal");
+          }else if(updatedSpeed<0){
+            let newSpeed = -10/updatedSpeed;
+            $(".marquee__text").css("animation-duration", newSpeed + "s");
+            $(".marquee__text").css("animation-direction", "reverse");
+          }else{
+            $(".marquee__text").css("animation-duration", "0");
+            $(".marquee__text").css("animation-direction", "normal");
+          }
+        });
+        $("#marqueeCheckbox").change(function() {
+          if(!$("#marqueeCheckbox").prop( "checked" )){
+            let currentRepetion = $(".marquee__text").css("animation-iteration-count");
+            $marqueeText = $('#marqueeText');
+            $marqueeText.removeClass('marquee__text');
+            setTimeout("$marqueeText.addClass('marquee__text');",100)
+            setTimeout(function(){$(".marquee__text").css("animation-iteration-count","1");},101)
+            $(".marquee__text").css("animation-iteration-count","1");
+          }else{
+            $(".marquee__text").css("animation-iteration-count","infinite");
+          }
+        });
+      });
+      </script>
+      <div class="marquee">
+        <div class="marquee__text-controls">
+          <input type="text" class="marquee__input" id="marqueeInput"></input>
+          <button class="marquee__button" id="marqueeButton">Добавить</button>
+        </div>
+        <div class="marquee__repetition-controls">
+          <input type="checkbox" class="marquee__checkbox" id="marqueeCheckbox" checked></input>
+          <label class="marquee__checkbox-label">Цикличность</label>
+        </div>
+        <div class="marquee__speed-controls">
+          <button class="marquee__speed-up" id="marqueeSpeedUp">+</button>
+          <input type="text" class="marquee__speed-input" id="marqueeSpeedInput" value="1"></input>
+          <button class="marquee__speed-down" id="marqueeSpeedDown">-</button>
+        </div>
+        <div class="marquee__block">
+      	  <p class="marquee__text" id="marqueeText">Тест</p>
+        </div>
+    </div>
+
+    </body>
+</html>
